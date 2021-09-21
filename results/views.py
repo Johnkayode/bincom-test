@@ -23,12 +23,13 @@ def total(request):
     lga_name = request.GET.get('lga_name')
     total = None
     results = None
+    result_list = []
     if lga_name:
         lga = get_object_or_404(Lga, lga_name=lga_name)
         polling_units = PollingUnit.objects.filter(lga_id=lga.lga_id)
         print(polling_units)
         total = 0
-        result_list = []
+        
         for polling_unit in polling_units:
             results = AnnouncedPuResults.objects.filter(polling_unit_uniqueid=polling_unit.polling_unit_id)
             unit_total = sum([result.party_score for result in results])
