@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div class="card px-4 py-4">
+        <div class="form">
+            <form action="% url 'create' %}" method="GET" >
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="submit" class="btn tbn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

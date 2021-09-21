@@ -41,3 +41,8 @@ def total(request):
         
     context = {"lgas":lgas, "total":total, "lga_name":lga_name, "result_list":result_list}
     return render(request, "results.html", context)
+
+
+def create(request):
+    context = {}
+    return render(request, "create.html", context)

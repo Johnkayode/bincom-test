@@ -3,16 +3,18 @@
 {% block body %}
     <div class="container pt-4">
         <form action="{% url 'total' %}" method="GET" class='form'>
-            <label class="mb-4">Search Local Government Areas</label>
-            <select class="form-select" name='lga_name'>
-                {% for lga in lgas %}
-                    <option value="{{lga.lga_name}}" {% if lga.lga_name == lga_name %} selected='selected' {% endif %} >
-                        {{ lga.lga_name }}
-                    </option>
-                {% endfor %}
-            </select>
-
-            <input type="submit" class='btn btn-primary mt-2'>
+            <label class="mb-4"><h4>Search Local Government Areas</h4></label>
+            <div class="input-group mb-3 mt-3">
+                <select class="form-select me-2 mt-2" name='lga_name'>
+                    {% for lga in lgas %}
+                        <option value="{{lga.lga_name}}" {% if lga.lga_name == lga_name %} selected='selected' {% endif %} >
+                            {{ lga.lga_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+    
+                <input type="submit" class='btn btn-primary mt-2 ms-2'>
+            </div>
         </form>
     </div>
     <div class="container mt-4 px-2 py-2">
@@ -34,8 +36,8 @@
             {% endfor %}
         {% endif %}
     </div>
-    <div class='container'>
-        <div class="card mt-4 px-4 py-4">
+    <div class='container mb-4'>
+        <div class="card mt-4 px-4 py-4 mb-4">
             {% if total%}
             <div class="mt-4">
                 <h2 class='px-4 py-4'>Total: {{total}} Votes</h2>
