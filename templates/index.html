@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div>
+    {% for result in results %}
+    <div>
+        {{ result.polling_unit_uniqueid }}
+        {{ result.party_abbreviation }}
+        {{ result.party_score }}
+    </div>
+    {% endfor %}
+</div>
+
+
+{% if results.has_previous or results.has_next %}
+    <nav class="nav nav-justified my-5">
+        {% if results.has_previous %}
+        <a class="btn mr-2" href="?page={{results.previous_page_number }}">
+            <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
+        </a>
+        {% else %}
+        <a class="btn disabled mr-2">
+            <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
+        </a>
+        {% endif %}
+        
+        {% if results.has_next %}
+        <a class="btn" href="?page={{results.next_page_number }}">Next 
+            <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i>
+        </a>
+        {% else %}
+        <a class="btn disabled">Next <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i></a>
+        {% endif %}
+        
+    </nav>
+{% endif %}
+
+{% endblock %}

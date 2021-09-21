@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container pt-4">
+        <form action="{% url 'total' %}" method="GET" class='form'>
+            <label class="mb-4">Search Local Government Areas</label>
+            <select class="form-select" name='lga_name'>
+                {% for lga in lgas %}
+                    <option value="{{lga.lga_name}}" {% if lga.lga_name == lga_name %} selected='selected' {% endif %} >
+                        {{ lga.lga_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" class='btn btn-primary mt-2'>
+        </form>
+    </div>
+    <div class="container mt-4 px-2 py-2">
+        {% if result_list %}
+            {% for result in result_list %}
+                <div class="mt-2 mb-2">
+                    <h4>Polling Unit: ID {{result.polling_unit}}</h4>
+                    {% if result.results%}
+                        {% for point in result.results%}
+                            <div>
+                                <span>{{point.party_abbreviation}}</span>
+                                <span>{{point.party_score}}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                            <span> 0 </span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class='container'>
+        <div class="card mt-4 px-4 py-4">
+            {% if total%}
+            <div class="mt-4">
+                <h2 class='px-4 py-4'>Total: {{total}} Votes</h2>
+            </div>
+            {% else %}
+                <div>
+                    Nothing here
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}
