@@ -14,7 +14,6 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com", "*"]
 
-DEBUG = False
 
 # Application definition
 
@@ -62,7 +61,7 @@ WSGI_APPLICATION = 'electioneer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
