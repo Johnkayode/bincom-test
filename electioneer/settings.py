@@ -12,8 +12,9 @@ SECRET_KEY = 'xz^-c-(nwreiig#%tl%hpqht(3bj+=vg@y=(e95dh#j*#z&d$j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com"]
+ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com", "*"]
 
+DEBUG = False
 
 # Application definition
 
@@ -74,7 +75,14 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        "default" : dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL'), conn_max_age=600)
+      'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'heroku_a0176e1521bf7f1',
+            'USER': 'ba2d6b4a8910ab',
+            'PASSWORD': 'cbdcdda0',
+            'HOST': 'us-cdbr-east-04.cleardb.com',
+            'PORT': '3306',
+        }
     }
 
 # Password validation
