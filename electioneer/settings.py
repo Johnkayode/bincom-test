@@ -13,7 +13,7 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com", "*"]
 
-DEBUG = False
+
 # Application definition
 
 INSTALLED_APPS = [
