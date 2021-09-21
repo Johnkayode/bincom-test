@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +12,7 @@ SECRET_KEY = 'xz^-c-(nwreiig#%tl%hpqht(3bj+=vg@y=(e95dh#j*#z&d$j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com"]
 
 
 # Application definition
@@ -60,18 +61,21 @@ WSGI_APPLICATION = 'electioneer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'results',
-        'USER': 'nerdthejohn',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '3306',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'results',
+            'USER': 'nerdthejohn',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        "default" : dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL'), conn_max_age=600)
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
