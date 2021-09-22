@@ -1,23 +1,69 @@
 {% extends "base.html" %}
 {% block body %}
-<div class="container">
+<div class="container mt-4">
+    <div id='card mt-4'>
+        <h6 class='text-center'>Add Polling Unit Results for Parties</h6>
+    </div>
     <div class="card px-4 py-4">
         <div class="form">
-            <form action="% url 'create' %}" method="GET" >
+            <form action="{% url 'create' %}" method="POST" >
+                {% csrf_token %}
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username">
-                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="text" class="form-control" placeholder="Your Name" name="name">
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username">
-                    <input type="text" class="form-control" placeholder="Username">
+                    <select class="form-select me-2 mt-2" name='polling_unit_id'>
+                        {% for unit in polling_units %}
+                            <option value="{{unit.polling_unit_id}}" >
+                                {{ unit.polling_unit_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <select class="form-select me-2 mt-2" name='party'>
+                        {% for party in parties %}
+                            <option value="{{party.partyname}}" >
+                                {{ party.partyname }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" class="form-control" placeholder="Party Score" name="party_score">
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="hidden" id='longitude' name='longitude'>
+                    <input class="form-control" type='hidden' id='latitude' name='latitude'>
+                    <input class="form-control" type='hidden' id='ip' name='ip'>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="submit" class="btn tbn-primary">
+                    <input type="submit" class="btn btn-primary">
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var x = document.getElementById("demo");
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+    }
+
+    getLocation()
+    $.getJSON("https://api.ipify.org?format=json", function(data) {
+            console.log(data.ip)
+            // Setting text of element P with id gfg
+            $("#ip").val(data.ip);
+    })
+</script>
 {% endblock %}

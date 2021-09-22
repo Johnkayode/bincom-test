@@ -1,38 +1,65 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div>
-    {% for result in results %}
-    <div>
-        {{ result.polling_unit_uniqueid }}
-        {{ result.party_abbreviation }}
-        {{ result.party_score }}
+<div class="container">
+    <div class="mb-4 mt-4">
+        <h3>Polling Units Results</h3>
     </div>
-    {% endfor %}
+    <div>
+        {% for unit_result in results %}
+        <div class='card mb-4 px-4 py-4'>
+            <h4 class='mb-4'>{{ unit_result.unit }}</h4>
+
+            {% if unit_result.results %}
+                <table class="table mt-4">
+                    <thead>
+                    <tr>
+                        {% for point in unit_result.results %}
+                        <th scope="col">{{point.party_abbreviation}}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for point in unit_result.results %}
+                                <th scope="row">{{point.party_score}}</th>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            {% else %}
+                <div class=''> 0 Votes</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    {% if results.has_previous or results.has_next %}
+        <nav class="nav nav-justified my-5">
+            {% if results.has_previous %}
+            <a class="btn mr-2" href="?page={{results.previous_page_number }}">
+                <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
+            </a>
+            {% else %}
+            <a class="btn disabled mr-2">
+                <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
+            </a>
+            {% endif %}
+            
+            {% if results.has_next %}
+            <a class="btn" href="?page={{results.next_page_number }}">Next 
+                <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i>
+            </a>
+            {% else %}
+            <a class="btn disabled">Next <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i></a>
+            {% endif %}
+            
+        </nav>
+    {% endif %}
+
 </div>
 
 
-{% if results.has_previous or results.has_next %}
-    <nav class="nav nav-justified my-5">
-        {% if results.has_previous %}
-        <a class="btn mr-2" href="?page={{results.previous_page_number }}">
-            <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
-        </a>
-        {% else %}
-        <a class="btn disabled mr-2">
-            <i class="mr-2 arrow-prev fas fa-long-arrow-alt-left"></i> Prev
-        </a>
-        {% endif %}
-        
-        {% if results.has_next %}
-        <a class="btn" href="?page={{results.next_page_number }}">Next 
-            <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i>
-        </a>
-        {% else %}
-        <a class="btn disabled">Next <i class="arrow-next ml-2 fas fa-long-arrow-alt-right"></i></a>
-        {% endif %}
-        
-    </nav>
-{% endif %}
 
 {% endblock %}

@@ -9,7 +9,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'xz^-c-(nwreiig#%tl%hpqht(3bj+=vg@y=(e95dh#j*#z&d$j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = False
 
 ALLOWED_HOSTS = ["bincom-fix.herokuapp.com", "www.bincom-fix.herokuapp.com", "*"]
 
